@@ -2,7 +2,8 @@
   <v-card
     :to="{ name: 'SongDetail', params: { id: song.id } }"
     color="surface"
-    class="rounded-lg transition-swing mx-3 mt-3"
+    variant="flat"
+    class="song-card rounded-lg transition-swing mx-3 mt-3"
     hover
   >
     <v-card-text class="py-3 px-3">
@@ -37,7 +38,7 @@
           v-if="isAuthenticated"
           :icon="isInPlaylist ? 'playlist_remove' : 'playlist_add'"
           variant="tonal"
-          :color="isInPlaylist ? 'primary' : 'inherit'"
+          :color="isInPlaylist ? 'primary' : 'surface-variant'"
           density="comfortable"
           rounded="lg"
           size="small"

@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar flat color="background" class="px-2">
+  <v-app-bar flat color="transparent" class="app-bar-glass px-2">
       <v-btn
         icon="chevron_left"
         variant="tonal"
@@ -17,7 +17,7 @@
 
   </v-app-bar>
 
-  <v-app-bar location="bottom" flat color="background" class="px-2">
+  <v-app-bar location="bottom" flat color="transparent" class="app-bar-glass--bottom px-2">
     <v-chip
       v-if="song?.originalKey"
       data-testid="key-chip"

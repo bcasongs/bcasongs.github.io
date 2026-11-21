@@ -1,10 +1,11 @@
 <template>
-  <v-app-bar flat color="background">
+  <v-app-bar flat color="transparent" class="app-bar-glass">
     <v-container class="pa-0 fill-height d-flex align-center px-3">
       <v-text-field
         v-model="localSearch"
         placeholder="Search songs..."
         variant="solo"
+        flat
         bg-color="surface"
         hide-details
         density="comfortable"
@@ -13,7 +14,7 @@
         clearable
         clear-icon="close"
         prepend-inner-icon="search"
-        class="flex-grow-1"
+        class="search-field flex-grow-1"
         @update:model-value="debouncedUpdateSearch"
         @click:clear="clearSearch"
       ></v-text-field>
@@ -151,5 +152,15 @@ watch(search, (newValue) => {
   height: calc(100vh - var(--v-layout-top, 0px) - var(--v-layout-bottom, 0px));
   height: calc(100dvh - var(--v-layout-top, 0px) - var(--v-layout-bottom, 0px));
   overflow: hidden;
+}
+
+.search-field :deep(.v-field) {
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-field :deep(.v-field--focused) {
+  border-color: rgba(43, 89, 195, 0.55);
+  box-shadow: 0 0 0 3px rgba(43, 89, 195, 0.1);
 }
 </style>

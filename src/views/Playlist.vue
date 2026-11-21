@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar flat color="background" class="px-2">
+  <v-app-bar flat color="transparent" class="app-bar-glass px-2">
       <v-btn
         icon="chevron_left"
         variant="tonal"
