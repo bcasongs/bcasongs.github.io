@@ -12,25 +12,10 @@
       </div>
 
       <div class="d-flex align-center">
-        <v-chip
-          v-if="song.originalKey"
-          color="outline"
-          variant="outlined"
-          size="small"
-          class="mr-2 font-weight-bold text-on-surface-variant text-none"
-        >
-          {{ song.originalKey }}
-        </v-chip>
-
-        <v-chip
-          v-if="song.bookNumber"
-          color="outline"
-          variant="outlined"
-          size="small"
-          class="font-weight-bold text-on-surface-variant"
-        >
-          #{{ song.bookNumber }}
-        </v-chip>
+        <SongMetaBadges
+          :original-key="song.originalKey"
+          :book-number="song.bookNumber"
+        />
 
         <v-spacer></v-spacer>
 
@@ -65,6 +50,7 @@
 <script setup lang="ts">
 import { useAuth } from '../composables/useAuth';
 import type { Song } from '../services/SongsRepository';
+import SongMetaBadges from './SongMetaBadges.vue';
 
 const { isAuthenticated } = useAuth();
 

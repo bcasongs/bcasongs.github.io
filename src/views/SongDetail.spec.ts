@@ -167,4 +167,28 @@ describe('SongDetail.vue (UI Integration)', () => {
     await flushPromises();
     expect(document.body.innerHTML).toContain('Test Message');
   });
+
+  it('renders semantic colors for Verse, Chorus, and Coda section chips', async () => {
+    (useSongEditor as Mock).mockReturnValue({
+      isEditMode: ref(false),
+      paragraphs: ref([
+        { id: 'p1', type: 'verse', lines: [{ text: 'Line 1', isSpacer: false }] },
+        { id: 'p2', type: 'chorus', lines: [{ text: 'Line 2', isSpacer: false }] },
+        { id: 'p3', type: 'coda', lines: [{ text: 'Line 3', isSpacer: false }] }
+      ]),
+      initializeEditor: vi.fn()
+    });
+
+    const wrapper = await mountAndWait();
+    const sectionChips = wrapper.findAllComponents({ name: 'VChip' })
+      .filter(c => c.attributes('data-testid') === 'section-chip');
+
+    expect(sectionChips).toHaveLength(3);
+    expect(sectionChips[0].text()).toBe('Verse');
+    expect(sectionChips[0].props('color')).toBe('surface-variant');
+    expect(sectionChips[1].text()).toBe('Chorus');
+    expect(sectionChips[1].props('color')).toBe('primary');
+    expect(sectionChips[2].text()).toBe('Coda');
+    expect(sectionChips[2].props('color')).toBe('tertiary');
+  });
 });

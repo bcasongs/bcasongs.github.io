@@ -18,26 +18,10 @@
   </v-app-bar>
 
   <v-app-bar location="bottom" flat color="transparent" class="app-bar-glass--bottom px-2">
-    <v-chip
-      v-if="song?.originalKey"
-      data-testid="key-chip"
-      color="outline"
-      variant="outlined"
-      size="small"
-      class="mr-2 font-weight-bold text-on-surface-variant text-none"
-    >
-      {{ song.originalKey }}
-    </v-chip>
-
-    <v-chip
-      v-if="song?.bookNumber"
-      color="outline"
-      variant="outlined"
-      size="small"
-      class="font-weight-bold text-on-surface-variant"
-    >
-      #{{ song.bookNumber }}
-    </v-chip>
+    <SongMetaBadges
+      :original-key="song?.originalKey"
+      :book-number="song?.bookNumber"
+    />
 
     <v-spacer></v-spacer>
     
@@ -137,7 +121,12 @@
         data-testid="title-input"
       ></v-text-field>
 
-      <div v-for="(paragraph, pIndex) in paragraphs" :key="paragraph.id" class="mb-6">
+      <div
+        v-for="(paragraph, pIndex) in paragraphs"
+        :key="paragraph.id"
+        class="mb-6"
+        :class="{ 'chorus-paragraph': !isEditMode && paragraph.type === 'chorus' }"
+      >
         <div class="mb-2 d-flex align-center">
           <template v-if="isEditMode">
             <v-btn-toggle
@@ -192,31 +181,14 @@
           </template>
           <template v-else>
             <v-chip
-              v-if="paragraph.type === 'chorus'"
+              data-testid="section-chip"
               size="small"
-              color="surface-variant"
+              :color="getSectionMeta(paragraph.type).color"
               variant="tonal"
-              class="text-uppercase"
+              label
+              class="section-badge text-uppercase font-weight-semibold"
             >
-              Chorus
-            </v-chip>
-            <v-chip
-              v-else-if="paragraph.type === 'coda'"
-              size="small"
-              color="surface-variant"
-              variant="tonal"
-              class="text-uppercase"
-            >
-              Coda
-            </v-chip>
-            <v-chip
-              v-else
-              size="small"
-              color="surface-variant"
-              variant="tonal"
-              class="text-uppercase"
-            >
-              Verse
+              {{ getSectionMeta(paragraph.type).label }}
             </v-chip>
           </template>
         </div>
@@ -262,7 +234,7 @@
     <v-card rounded="xl" class="pa-4">
       <v-card-text class="pt-4">
         <div class="text-center text-h4 mb-6">
-          {{ selectedRoot }}{{ selectedAccidental }}{{ selectedQuality }}
+          {{ formatMusicalKey(`${selectedRoot}${selectedAccidental}${selectedQuality}`) }}
         </div>
 
         <v-row>
@@ -330,6 +302,18 @@ import { useSongActions } from '../composables/useSongActions';
 import { useCurrentSong } from '../composables/useCurrentSong';
 import { useAppNavigation } from '../composables/useAppNavigation';
 import type { Song } from '../services/SongsRepository';
+import type { ParagraphType } from '../services/LyricsService';
+import SongMetaBadges from '../components/SongMetaBadges.vue';
+import { formatMusicalKey } from '../utils/musicKey';
+
+const SECTION_META: Record<ParagraphType, { label: string; color: string }> = {
+  verse: { label: 'Verse', color: 'surface-variant' },
+  chorus: { label: 'Chorus', color: 'primary' },
+  coda: { label: 'Coda', color: 'tertiary' }
+};
+
+const getSectionMeta = (type: ParagraphType | undefined) =>
+  (type && SECTION_META[type]) || SECTION_META.verse;
 
 const route = useRoute();
 const { isInPlaylist } = usePlaylist();
@@ -372,6 +356,15 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.section-badge {
+  letter-spacing: 0.06em;
+}
+
+.chorus-paragraph {
+  border-left: 3px solid rgba(43, 89, 195, 0.35);
+  padding-left: 12px;
+}
+
 .lyrics-text-1 {
   font-size: 1.125rem; /* 18px */
   line-height: 1.6;
