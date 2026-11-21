@@ -124,5 +124,24 @@ describe('SongList.vue', () => {
         const virtualScroll = wrapper.findComponent({ name: 'VVirtualScroll' });
         expect(virtualScroll.exists()).toBe(true);
         expect(virtualScroll.props('items')).toHaveLength(2);
+        expect(virtualScroll.props('itemKey')).toBe('id');
+    });
+
+    it('resets virtual scroll position to top when search changes', async () => {
+        mockUseSongs.mockState.songs.value = [
+            { id: '1', title: 'Song 1', content: 'Lyrics 1' },
+            { id: '2', title: 'Song 2', content: 'Lyrics 2' }
+        ];
+        const wrapper = mountComponent();
+        const scroller = wrapper.find('[data-testid="song-virtual-scroll"]');
+        const scrollerEl = scroller.element as HTMLElement;
+
+        scrollerEl.scrollTop = 600;
+        await scroller.trigger('scroll');
+
+        mockUseSongs.mockState.search.value = 'Song 1';
+        await flushPromises();
+
+        expect(scrollerEl.scrollTop).toBe(0);
     });
 });

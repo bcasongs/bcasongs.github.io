@@ -42,7 +42,7 @@
     </v-container>
   </v-app-bar>
 
-  <v-container fluid class="py-0 px-0 h-100 d-flex flex-column">
+  <v-container fluid class="song-list-container py-0 px-0 d-flex flex-column">
     <div v-if="loading && songs.length === 0" class="d-flex justify-center my-4">
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
     </div>
@@ -50,9 +50,13 @@
     <div v-else class="flex-grow-1" style="min-height: 0;">
       <v-virtual-scroll
         v-if="songs.length > 0"
+        ref="virtualScrollRef"
         :items="songs"
-        height="100%"
-        item-height="100"
+        item-key="id"
+        :item-height="108"
+        class="h-100 pb-16"
+        data-testid="song-virtual-scroll"
+        @scroll.passive="handleScroll"
       >
         <template v-slot:default="{ item }">
           <SongCard
@@ -99,6 +103,7 @@ import { useAuth } from '../composables/useAuth';
 import { usePlaylist } from '../composables/usePlaylist';
 import { useSongActions } from '../composables/useSongActions';
 import { useSongs } from '../composables/useSongs';
+import { useScrollPosition, type ScrollTarget } from '../composables/useScrollPosition';
 import SongCard from '../components/SongCard.vue';
 import UserAuth from '../components/UserAuth.vue';
 
@@ -106,6 +111,9 @@ const { isAuthenticated, isAuthenticating } = useAuth();
 const { songs, search, loading } = useSongs();
 const { isInPlaylist, playlistCount } = usePlaylist();
 const { snackbar, snackbarText, handleTogglePlaylist, handleShare } = useSongActions();
+
+const virtualScrollRef = ref<ScrollTarget>(null);
+const { handleScroll, resetScrollPosition } = useScrollPosition(virtualScrollRef);
 
 // Debounced Search Implementation
 const localSearch = ref(search.value);
@@ -129,10 +137,19 @@ const clearSearch = () => {
   search.value = '';
 };
 
-// Sync localSearch if search changes externally (e.g. cleared)
+// Sync localSearch if search changes externally (e.g. cleared) and reset scroll to top
 watch(search, (newValue) => {
   if (localSearch.value !== newValue) {
     localSearch.value = newValue;
   }
+  resetScrollPosition();
 });
 </script>
+
+<style scoped>
+.song-list-container {
+  height: calc(100vh - var(--v-layout-top, 0px) - var(--v-layout-bottom, 0px));
+  height: calc(100dvh - var(--v-layout-top, 0px) - var(--v-layout-bottom, 0px));
+  overflow: hidden;
+}
+</style>

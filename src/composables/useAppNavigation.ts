@@ -4,7 +4,7 @@ export function useAppNavigation() {
   const router = useRouter();
 
   const goBack = (): void => {
-    if (window.history.length > 2) {
+    if (window.history.state?.back) {
       router.back();
     } else {
       router.push('/');
