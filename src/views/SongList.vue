@@ -35,7 +35,7 @@
           :model-value="playlistCount > 0"
           color="primary"
         >
-          <v-icon size="25" icon="queue_music"></v-icon>
+          <v-icon icon="queue_music"></v-icon>
         </v-badge>
       </v-btn>
 

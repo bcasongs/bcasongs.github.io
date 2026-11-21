@@ -83,7 +83,7 @@
       rounded="lg"
       :ripple="false"
       :disabled="isEditMode"
-      icon="music_note_add"
+      icon="music_note"
     >
     </v-btn>
 
@@ -100,7 +100,7 @@
       density="comfortable"
       rounded="lg"
       :ripple="false"
-      :icon="isEditMode ? 'check' : 'edit_document'"
+      :icon="isEditMode ? 'check' : 'edit'"
     >
     </v-btn>
 

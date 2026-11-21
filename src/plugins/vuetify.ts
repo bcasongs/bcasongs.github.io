@@ -1,25 +1,9 @@
 // Styles
-import 'material-symbols/outlined.css'
 import 'vuetify/styles'
 
 // Vuetify
 import { createVuetify } from 'vuetify'
-import { h } from 'vue'
-import type { IconProps } from 'vuetify'
-
-// Custom icon set for Material Symbols
-const materialSymbols = {
-  component: (props: IconProps) => {
-    const iconName = typeof props.icon === 'string'
-      ? props.icon
-      : (props.icon as { icon?: string })?.icon || props.icon
-    return h(
-      'i',
-      { class: 'material-symbols-outlined' },
-      iconName as string
-    )
-  },
-}
+import { lucideAliases, lucideIconSet } from './icons'
 
 
 export default createVuetify({
@@ -85,9 +69,10 @@ export default createVuetify({
     }
   },
   icons: {
-    defaultSet: 'ms',
+    defaultSet: 'lucide',
+    aliases: lucideAliases,
     sets: {
-      ms: materialSymbols,
+      lucide: lucideIconSet,
     },
   },
 })
