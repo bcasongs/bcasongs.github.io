@@ -1,5 +1,5 @@
 import sharp from 'sharp';
-import { mkdir } from 'fs/promises';
+import { mkdir, readFile } from 'fs/promises';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -10,12 +10,16 @@ const svgPath = join(publicDir, 'icon.svg');
 
 await mkdir(iconsDir, { recursive: true });
 
-await sharp(svgPath)
+// Use full-bleed square corners for PNGs so iOS apple-touch-icon and Android maskable icons have no transparent corner artifacts
+const rawSvg = await readFile(svgPath, 'utf-8');
+const fullBleedSvg = Buffer.from(rawSvg.replace(/rx="[^"]*"/g, 'rx="0"'));
+
+await sharp(fullBleedSvg)
   .resize(192, 192)
   .png()
   .toFile(join(iconsDir, 'icon-192.png'));
 
-await sharp(svgPath)
+await sharp(fullBleedSvg)
   .resize(512, 512)
   .png()
   .toFile(join(iconsDir, 'icon-512.png'));

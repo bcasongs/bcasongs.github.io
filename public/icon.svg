@@ -1,11 +1,20 @@
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
-<svg fill="#49482d" width="800px" height="800px" viewBox="0 0 24.00 24.00" id="music-circle" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color" stroke="#49482d" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)">
-<g id="SVGRepo_bgCarrier" stroke-width="0"/>
-<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.43200000000000005"/>
-<g id="SVGRepo_iconCarrier">
-<circle id="secondary" cx="10" cy="14" r="2" style="fill: none; stroke: #49482d; stroke-linecap: round; stroke-linejoin: round; stroke-width:1.2;"/>
-<path id="secondary-2" data-name="secondary" d="M15.87,11A4,4,0,0,0,12,8v6" style="fill: none; stroke: #49482d; stroke-linecap: round; stroke-linejoin: round; stroke-width:1.2;"/>
-<circle id="primary" cx="12" cy="12" r="9" style="fill: none; stroke: #49482d; stroke-linecap: round; stroke-linejoin: round; stroke-width:1.2;"/>
-</g>
-</svg>
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-mist" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="55%" stop-color="#EBF3FF"/>
+      <stop offset="100%" stop-color="#D7E7FC"/>
+    </linearGradient>
+    <radialGradient id="glow-mist" cx="24%" cy="20%" r="65%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.75)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg-mist)"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow-mist)"/>
+  <g transform="translate(256, 256) scale(16.2) translate(-12, -12)">
+    <circle cx="12" cy="12" r="9" fill="rgba(43,89,195,0.06)" stroke="#2B59C3" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="10" cy="14" r="2" fill="none" stroke="#2B59C3" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15.87,11A4,4,0,0,0,12,8v6" fill="none" stroke="#2B59C3" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
