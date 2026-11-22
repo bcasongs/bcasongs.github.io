@@ -48,14 +48,17 @@ body {
 }
 
 .song-card {
+  height: 92px;
   border: 1px solid rgba(150, 120, 126, 0.2);
   box-shadow: 0 1px 3px rgba(33, 25, 27, 0.05) !important;
-  background-color: rgba(255, 255, 255, 0.92) !important;
+  background-color: rgb(var(--v-theme-surface)) !important;
+  transition: border-color 0.15s ease;
 }
 
-.song-card:hover {
-  border-color: rgba(var(--v-theme-primary), 0.28);
-  box-shadow: 0 4px 12px rgba(33, 25, 27, 0.07) !important;
+@media (hover: hover) {
+  .song-card:hover {
+    border-color: rgba(var(--v-theme-primary), 0.35);
+  }
 }
 
 .v-application.v-theme--bcasongsDark {
@@ -79,12 +82,13 @@ body {
 .v-theme--bcasongsDark .song-card {
   border: 1px solid rgba(216, 199, 205, 0.15);
   box-shadow: 0 2px 6px rgba(15, 10, 12, 0.22) !important;
-  background-color: rgba(55, 44, 49, 0.86) !important;
+  background-color: rgb(var(--v-theme-surface)) !important;
 }
 
-.v-theme--bcasongsDark .song-card:hover {
-  border-color: rgba(var(--v-theme-primary), 0.45);
-  box-shadow: 0 6px 16px rgba(15, 10, 12, 0.32) !important;
+@media (hover: hover) {
+  .v-theme--bcasongsDark .song-card:hover {
+    border-color: rgba(var(--v-theme-primary), 0.45);
+  }
 }
 
 #app {

@@ -69,7 +69,7 @@
         ref="virtualScrollRef"
         :items="songs"
         item-key="id"
-        :item-height="108"
+        :item-height="104"
         class="h-100 pb-16"
         data-testid="song-virtual-scroll"
         @scroll.passive="handleScroll"

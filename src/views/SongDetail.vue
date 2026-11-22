@@ -111,7 +111,7 @@
   </v-row>
 
   <div v-else-if="song">
-    <div class="song-content px-3">
+    <div class="song-content px-3 py-4">
       <v-text-field
         v-if="isEditMode"
         v-model="editTitle"
