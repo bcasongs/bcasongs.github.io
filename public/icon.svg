@@ -1,20 +1,20 @@
 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg-mist" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="55%" stop-color="#EBF3FF"/>
-      <stop offset="100%" stop-color="#D7E7FC"/>
+    <linearGradient id="bg-velvet" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDFD"/>
+      <stop offset="55%" stop-color="#F8E6E9"/>
+      <stop offset="100%" stop-color="#F0D3D8"/>
     </linearGradient>
-    <radialGradient id="glow-mist" cx="24%" cy="20%" r="65%">
+    <radialGradient id="glow-velvet" cx="24%" cy="20%" r="65%">
       <stop offset="0%" stop-color="rgba(255,255,255,0.75)"/>
       <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
     </radialGradient>
   </defs>
-  <rect width="512" height="512" rx="112" fill="url(#bg-mist)"/>
-  <rect width="512" height="512" rx="112" fill="url(#glow-mist)"/>
+  <rect width="512" height="512" rx="112" fill="url(#bg-velvet)"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow-velvet)"/>
   <g transform="translate(256, 256) scale(16.2) translate(-12, -12)">
-    <circle cx="12" cy="12" r="9" fill="rgba(43,89,195,0.06)" stroke="#2B59C3" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="10" cy="14" r="2" fill="none" stroke="#2B59C3" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M15.87,11A4,4,0,0,0,12,8v6" fill="none" stroke="#2B59C3" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="9" fill="rgba(158,59,77,0.06)" stroke="#9E3B4D" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="10" cy="14" r="2" fill="none" stroke="#9E3B4D" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15.87,11A4,4,0,0,0,12,8v6" fill="none" stroke="#9E3B4D" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 </svg>

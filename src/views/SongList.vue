@@ -155,12 +155,12 @@ watch(search, (newValue) => {
 }
 
 .search-field :deep(.v-field) {
-  border: 1px solid rgba(148, 163, 184, 0.28);
+  border: 1px solid rgba(150, 120, 126, 0.25);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .search-field :deep(.v-field--focused) {
-  border-color: rgba(43, 89, 195, 0.55);
-  box-shadow: 0 0 0 3px rgba(43, 89, 195, 0.1);
+  border-color: rgba(var(--v-theme-primary), 0.55);
+  box-shadow: 0 0 0 3px rgba(var(--v-theme-primary), 0.1);
 }
 </style>

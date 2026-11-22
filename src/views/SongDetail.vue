@@ -361,7 +361,7 @@ onUnmounted(() => {
 }
 
 .chorus-paragraph {
-  border-left: 3px solid rgba(43, 89, 195, 0.35);
+  border-left: 3px solid rgba(var(--v-theme-primary), 0.35);
   padding-left: 12px;
 }
 
