@@ -33,17 +33,17 @@ body {
 }
 
 .app-bar-glass {
-  background: rgba(252, 244, 245, 0.72) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(150, 120, 126, 0.18);
+  background: rgba(252, 244, 245, 0.45) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(150, 120, 126, 0.14);
 }
 
 .app-bar-glass--bottom {
-  background: rgba(252, 244, 245, 0.78) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(150, 120, 126, 0.18);
+  background: rgba(252, 244, 245, 0.5) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(150, 120, 126, 0.14);
   border-bottom: none;
 }
 
