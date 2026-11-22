@@ -15,7 +15,10 @@ body {
 
 .v-application {
   font-family: 'Roboto', sans-serif !important;
-  background: linear-gradient(155deg, #fdfbfa 0%, #f9eff0 48%, #f8f3ec 100%) !important;
+  background:
+    radial-gradient(at 14% 10%, rgba(250, 218, 225, 0.72) 0%, transparent 55%),
+    radial-gradient(at 88% 85%, rgba(248, 222, 194, 0.72) 0%, transparent 55%),
+    linear-gradient(155deg, #fdf8f7 0%, #f4dfe4 50%, #f5e7da 100%) !important;
 
   [class*='text-'] {
     font-family: 'Roboto', sans-serif !important;
@@ -30,14 +33,14 @@ body {
 }
 
 .app-bar-glass {
-  background: rgba(253, 251, 250, 0.8) !important;
+  background: rgba(252, 244, 245, 0.72) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(150, 120, 126, 0.18);
 }
 
 .app-bar-glass--bottom {
-  background: rgba(253, 251, 250, 0.85) !important;
+  background: rgba(252, 244, 245, 0.78) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(150, 120, 126, 0.18);
