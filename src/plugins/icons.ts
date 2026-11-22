@@ -25,6 +25,7 @@ import {
   ListX,
   LoaderCircle,
   Menu,
+  Moon,
   Music,
   Paperclip,
   Pencil,
@@ -35,6 +36,7 @@ import {
   SquareCheck,
   SquareMinus,
   Star,
+  Sun,
   Trash2,
   TriangleAlert,
   Upload,
@@ -62,6 +64,8 @@ export const ICON_MAP: Record<string, Component> = {
   delete: Trash2,
   drag_indicator: GripVertical,
   arrow_drop_down: ChevronDown,
+  light_mode: Sun,
+  dark_mode: Moon,
 
   // Additional Vuetify alias targets
   chevron_down: ChevronDown,

@@ -25,6 +25,16 @@ vi.mock('../composables/usePlaylist', () => ({
     }))
 }));
 
+const mockToggleTheme = vi.fn();
+const mockIsDark = ref(false);
+
+vi.mock('../composables/useThemeMode', () => ({
+    useThemeMode: vi.fn(() => ({
+        isDark: mockIsDark,
+        toggleTheme: mockToggleTheme
+    }))
+}));
+
 vi.mock('../composables/useSongActions', () => ({
     useSongActions: vi.fn(() => ({
         snackbar: ref(false),
@@ -149,5 +159,22 @@ describe('SongList.vue', () => {
         await flushPromises();
 
         expect(scrollerEl.scrollTop).toBe(0);
+    });
+
+    it('toggles theme when top-right theme button is clicked', async () => {
+        mockToggleTheme.mockClear();
+        mockIsDark.value = false;
+        const wrapper = mountComponent();
+
+        const toggleBtn = wrapper.find('[data-testid="theme-toggle-btn"]');
+        expect(toggleBtn.exists()).toBe(true);
+        expect(toggleBtn.findComponent({ name: 'VIcon' }).props('icon')).toBe('dark_mode');
+
+        await toggleBtn.trigger('click');
+        expect(mockToggleTheme).toHaveBeenCalledTimes(1);
+
+        mockIsDark.value = true;
+        await flushPromises();
+        expect(toggleBtn.findComponent({ name: 'VIcon' }).props('icon')).toBe('light_mode');
     });
 });

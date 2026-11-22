@@ -39,6 +39,21 @@
         </v-badge>
       </v-btn>
 
+      <v-btn
+        icon
+        variant="tonal"
+        color="surface-variant"
+        rounded="lg"
+        class="ml-2"
+        density="comfortable"
+        :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+        :aria-label="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+        data-testid="theme-toggle-btn"
+        @click="toggleTheme"
+      >
+        <v-icon :icon="isDark ? 'light_mode' : 'dark_mode'"></v-icon>
+      </v-btn>
+
       <UserAuth size="large" :avatar-size="32" class="ml-2" />
     </v-container>
   </v-app-bar>
@@ -140,10 +155,12 @@ import { usePlaylist } from '../composables/usePlaylist';
 import { useSongActions } from '../composables/useSongActions';
 import { useSongs } from '../composables/useSongs';
 import { useScrollPosition, type ScrollTarget } from '../composables/useScrollPosition';
+import { useThemeMode } from '../composables/useThemeMode';
 import SongCard from '../components/SongCard.vue';
 import UserAuth from '../components/UserAuth.vue';
 
 const { isAuthenticated, isAuthenticating } = useAuth();
+const { isDark, toggleTheme } = useThemeMode();
 const { songs, search, loading } = useSongs();
 const { isInPlaylist, playlistCount } = usePlaylist();
 const {
@@ -201,12 +218,12 @@ watch(search, (newValue) => {
 }
 
 .search-field :deep(.v-field) {
-  border: 1px solid rgba(150, 120, 126, 0.25);
+  border: 1px solid rgba(var(--v-theme-outline), 0.35);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .search-field :deep(.v-field--focused) {
   border-color: rgba(var(--v-theme-primary), 0.55);
-  box-shadow: 0 0 0 3px rgba(var(--v-theme-primary), 0.1);
+  box-shadow: 0 0 0 3px rgba(var(--v-theme-primary), 0.12);
 }
 </style>

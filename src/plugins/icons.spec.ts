@@ -21,7 +21,9 @@ const APP_ICONS = [
   'add_row_below',
   'delete',
   'drag_indicator',
-  'arrow_drop_down'
+  'arrow_drop_down',
+  'light_mode',
+  'dark_mode'
 ];
 
 describe('Lucide Vuetify Icon Set', () => {

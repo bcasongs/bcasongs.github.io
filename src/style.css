@@ -58,6 +58,35 @@ body {
   box-shadow: 0 4px 12px rgba(33, 25, 27, 0.07) !important;
 }
 
+.v-application.v-theme--bcasongsDark {
+  background:
+    radial-gradient(at 14% 10%, rgba(168, 72, 92, 0.28) 0%, transparent 58%),
+    radial-gradient(at 88% 85%, rgba(166, 114, 52, 0.22) 0%, transparent 58%),
+    linear-gradient(155deg, #272024 0%, #31252b 50%, #2e2522 100%) !important;
+}
+
+.v-theme--bcasongsDark .app-bar-glass {
+  background: rgba(43, 34, 38, 0.56) !important;
+  border-bottom: 1px solid rgba(216, 199, 205, 0.14);
+}
+
+.v-theme--bcasongsDark .app-bar-glass--bottom {
+  background: rgba(43, 34, 38, 0.62) !important;
+  border-top: 1px solid rgba(216, 199, 205, 0.14);
+  border-bottom: none;
+}
+
+.v-theme--bcasongsDark .song-card {
+  border: 1px solid rgba(216, 199, 205, 0.15);
+  box-shadow: 0 2px 6px rgba(15, 10, 12, 0.22) !important;
+  background-color: rgba(55, 44, 49, 0.86) !important;
+}
+
+.v-theme--bcasongsDark .song-card:hover {
+  border-color: rgba(var(--v-theme-primary), 0.45);
+  box-shadow: 0 6px 16px rgba(15, 10, 12, 0.32) !important;
+}
+
 #app {
   /* max-width: 1280px; <-- Removed constraint */
   margin: 0;
