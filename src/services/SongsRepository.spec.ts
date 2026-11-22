@@ -240,13 +240,39 @@ describe('SongsRepository', () => {
       expect(updatePayload.content).toBe('Lyrics');
     });
 
-    it('deleteSong should delete the correct document', async () => {
+    it('deleteSong should delete from Firestore and then remove from local cache', async () => {
+      mockGetDocs.mockResolvedValueOnce({
+        docs: makeDocs([
+          { id: '123', title: 'Song To Delete', content: 'Lyrics A' },
+          { id: '456', title: 'Song To Keep', content: 'Lyrics B' }
+        ])
+      });
+      await SongsRepository.initialize();
+      mockDeleteDoc.mockResolvedValueOnce(undefined);
+
       await SongsRepository.deleteSong('123');
 
       expect(mockDoc).toHaveBeenCalledWith(expect.anything(), 'songs', '123');
       expect(mockDeleteDoc).toHaveBeenCalledWith(expect.objectContaining({
         _path: 'songs/123'
       }));
+      expect(SongsRepository.songs.value).toHaveLength(1);
+      expect(SongsRepository.songs.value[0].id).toBe('456');
+      expect(SongsRepository.searchIndex.value.map(s => s.id)).toEqual(['456']);
+    });
+
+    it('deleteSong should keep song in local cache if Firestore delete fails', async () => {
+      mockGetDocs.mockResolvedValueOnce({
+        docs: makeDocs([
+          { id: '123', title: 'Song To Delete', content: 'Lyrics A' }
+        ])
+      });
+      await SongsRepository.initialize();
+      mockDeleteDoc.mockRejectedValueOnce(new Error('Permission denied'));
+
+      await expect(SongsRepository.deleteSong('123')).rejects.toThrow('Permission denied');
+      expect(SongsRepository.songs.value).toHaveLength(1);
+      expect(SongsRepository.songs.value[0].id).toBe('123');
     });
   });
 });

@@ -29,8 +29,14 @@ vi.mock('../composables/useSongActions', () => ({
     useSongActions: vi.fn(() => ({
         snackbar: ref(false),
         snackbarText: ref(''),
+        deleteDialog: ref(false),
+        songToDelete: ref(null),
+        isDeleting: ref(false),
         handleTogglePlaylist: vi.fn(),
-        handleShare: vi.fn()
+        handleShare: vi.fn(),
+        requestDeleteSong: vi.fn(),
+        cancelDeleteSong: vi.fn(),
+        confirmDeleteSong: vi.fn()
     }))
 }));
 

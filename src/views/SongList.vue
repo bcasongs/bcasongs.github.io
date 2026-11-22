@@ -63,8 +63,10 @@
           <SongCard
             :song="item"
             :is-in-playlist="isInPlaylist(item.id)"
+            allow-delete
             @toggle-playlist="handleTogglePlaylist"
             @share="handleShare"
+            @delete="requestDeleteSong"
           />
         </template>
       </v-virtual-scroll>
@@ -86,6 +88,39 @@
       elevation="4"
       style="z-index: 100;"
     ></v-btn>
+
+    <v-dialog v-model="deleteDialog" max-width="360" :persistent="isDeleting" data-testid="delete-dialog">
+      <v-card rounded="xl" class="pa-2">
+        <v-card-title class="text-h6 pt-4 px-4">
+          Delete song?
+        </v-card-title>
+        <v-card-text class="px-4 text-body-2 text-on-surface-variant">
+          Are you sure you want to permanently delete
+          <strong class="text-on-surface">"{{ songToDelete?.title }}"</strong>?
+        </v-card-text>
+        <v-card-actions class="justify-end px-4 pb-3">
+          <v-btn
+            data-testid="delete-cancel-btn"
+            variant="text"
+            rounded="lg"
+            :disabled="isDeleting"
+            @click="cancelDeleteSong"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            data-testid="delete-confirm-btn"
+            color="error"
+            variant="flat"
+            rounded="lg"
+            :loading="isDeleting"
+            @click="confirmDeleteSong"
+          >
+            Delete
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <v-snackbar v-model="snackbar" :timeout="2000" color="inverse-surface">
       {{ snackbarText }}
@@ -111,7 +146,18 @@ import UserAuth from '../components/UserAuth.vue';
 const { isAuthenticated, isAuthenticating } = useAuth();
 const { songs, search, loading } = useSongs();
 const { isInPlaylist, playlistCount } = usePlaylist();
-const { snackbar, snackbarText, handleTogglePlaylist, handleShare } = useSongActions();
+const {
+  snackbar,
+  snackbarText,
+  deleteDialog,
+  songToDelete,
+  isDeleting,
+  handleTogglePlaylist,
+  handleShare,
+  requestDeleteSong,
+  cancelDeleteSong,
+  confirmDeleteSong
+} = useSongActions();
 
 const virtualScrollRef = ref<ScrollTarget>(null);
 const { handleScroll, resetScrollPosition } = useScrollPosition(virtualScrollRef);

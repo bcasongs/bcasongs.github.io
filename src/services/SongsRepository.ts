@@ -153,6 +153,7 @@ export default {
   async deleteSong(id: string): Promise<void> {
     try {
       await deleteDoc(doc(db, 'songs', id));
+      _songs.value = _songs.value.filter(s => s.id !== id);
     } catch (e) {
       console.error("Error deleting song:", e);
       throw e;

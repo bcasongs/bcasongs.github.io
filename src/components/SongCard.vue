@@ -42,6 +42,21 @@
           @click.prevent="emit('share', song)"
         >
         </v-btn>
+
+        <v-btn
+          v-if="isAuthenticated && allowDelete"
+          icon="delete"
+          variant="tonal"
+          color="error"
+          density="comfortable"
+          rounded="lg"
+          size="small"
+          class="ml-2"
+          title="Delete Song"
+          data-testid="delete-song-btn"
+          @click.prevent.stop="emit('delete', song)"
+        >
+        </v-btn>
       </div>
     </v-card-text>
   </v-card>
@@ -57,10 +72,12 @@ const { isAuthenticated } = useAuth();
 defineProps<{
   song: Song;
   isInPlaylist?: boolean;
+  allowDelete?: boolean;
 }>();
 
 const emit = defineEmits<{
   'toggle-playlist': [id: string];
   'share': [song: Song];
+  'delete': [song: Song];
 }>();
 </script>

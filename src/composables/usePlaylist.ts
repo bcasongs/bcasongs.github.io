@@ -25,12 +25,17 @@ export function usePlaylist() {
     await PlaylistRepository.replaceAllSongsInPlaylist(newIds);
   };
 
+  const removeFromPlaylist = async (songId: string): Promise<void> => {
+    await PlaylistRepository.removeSongFromPlaylist(songId);
+  };
+
   return {
     playlist,
     playlistCount,
     loading: PlaylistRepository.loading,
     error: PlaylistRepository.error,
     togglePlaylist,
+    removeFromPlaylist,
     isInPlaylist,
     reorderPlaylist,
     replacePlaylist
