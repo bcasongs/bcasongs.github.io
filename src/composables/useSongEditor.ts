@@ -79,6 +79,13 @@ export function useSongEditor(songRef: Ref<Song | null>, snackbarText: Ref<strin
 
           if (route.params?.id === 'new') {
             const newId = await SongsRepository.addSong(editTitle.value, newContent, songRef.value.originalKey ?? null);
+            songRef.value = {
+              ...songRef.value,
+              id: newId,
+              title: editTitle.value,
+              content: newContent
+            };
+            isEditMode.value = false;
             snackbarText.value = 'Song created successfully';
             snackbar.value = true;
             router.replace(`/song/${newId}`);

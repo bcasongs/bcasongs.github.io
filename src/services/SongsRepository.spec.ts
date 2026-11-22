@@ -190,19 +190,40 @@ describe('SongsRepository', () => {
   });
 
   describe('CRUD Operations', () => {
-    it('addSong should call addDoc with correct payload and return new id', async () => {
-      mockAddDoc.mockResolvedValue({ id: 'new-id-123' });
-      const id = await SongsRepository.addSong('New Song', 'Lyrics', 'G');
+    it('addSong should call addDoc, return new id, and insert song alphabetically into local cache', async () => {
+      mockGetDocs.mockResolvedValueOnce({
+        docs: makeDocs([
+          { id: '1', title: 'Alpha Song', content: 'A' },
+          { id: '2', title: 'Zeta Song', content: 'Z' }
+        ])
+      });
+      await SongsRepository.initialize();
+
+      mockAddDoc.mockResolvedValueOnce({ id: 'new-id-123' });
+      const id = await SongsRepository.addSong('Middle Song', 'Lyrics', 'G');
 
       expect(mockAddDoc).toHaveBeenCalledWith(
         expect.anything(),
         expect.objectContaining({
-          title: 'New Song',
+          title: 'Middle Song',
           content: 'Lyrics',
           originalKey: 'G'
         })
       );
       expect(id).toBe('new-id-123');
+      expect(SongsRepository.songs.value.map(s => s.title)).toEqual([
+        'Alpha Song',
+        'Middle Song',
+        'Zeta Song'
+      ]);
+      expect(SongsRepository.searchIndex.value.map(s => s.id)).toContain('new-id-123');
+    });
+
+    it('addSong should not mutate local cache if Firestore addDoc fails', async () => {
+      mockAddDoc.mockRejectedValueOnce(new Error('Permission denied'));
+
+      await expect(SongsRepository.addSong('Failed Song', 'Lyrics')).rejects.toThrow('Permission denied');
+      expect(SongsRepository.songs.value).toHaveLength(0);
     });
 
     it('save should update content and title for the correct document', async () => {

@@ -118,13 +118,28 @@ export default {
 
   async addSong(title: string, content: string, key: string | null = null): Promise<string> {
     try {
+      const normalizedKey = key || null;
       const docRef = await addDoc(collection(db, 'songs'), {
         title,
         content,
-        originalKey: key || null,
+        originalKey: normalizedKey,
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp()
       });
+
+      const newSong: Song = {
+        id: docRef.id,
+        title,
+        content,
+        originalKey: normalizedKey
+      };
+
+      if (!_songs.value.some(s => s.id === docRef.id)) {
+        _songs.value = [..._songs.value, newSong].sort((a, b) =>
+          (a.title || '').localeCompare(b.title || '')
+        );
+      }
+
       return docRef.id;
     } catch (e) {
       console.error("Error adding song:", e);
@@ -144,6 +159,22 @@ export default {
     try {
       const songRef = doc(db, 'songs', id);
       await updateDoc(songRef, updateData);
+
+      const index = _songs.value.findIndex(s => s.id === id);
+      if (index !== -1) {
+        const updatedSong: Song = {
+          ..._songs.value[index],
+          content,
+          ...(title ? { title } : {}),
+          ...(originalKey !== null ? { originalKey } : {})
+        };
+        const nextSongs = [..._songs.value];
+        nextSongs[index] = updatedSong;
+        if (title) {
+          nextSongs.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+        }
+        _songs.value = nextSongs;
+      }
     } catch (e) {
       console.error("Error updating song:", e);
       throw e;

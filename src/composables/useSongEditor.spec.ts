@@ -91,6 +91,12 @@ describe('useSongEditor', () => {
     await editor.toggleEditMode();
 
     expect(SongsRepository.addSong).toHaveBeenCalledWith('Brand New', expect.any(String), 'G');
+    expect(songRef.value).toMatchObject({
+      id: 'new-id',
+      title: 'Brand New',
+      content: 'Some lyrics'
+    });
+    expect(editor.isEditMode.value).toBe(false);
     expect(mockReplace).toHaveBeenCalledWith('/song/new-id');
   });
 });
